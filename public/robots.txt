@@ -1,2 +1,22 @@
+# Link-preview bots (WhatsApp, Facebook, Instagram, X, LinkedIn, Telegram) may read the page for the share card.
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# Everyone else (search engines) stays out — demo is private.
 User-agent: *
 Disallow: /
