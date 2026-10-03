@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Design plan — taken from the Gravity logo: black stage, foil gold, signboard red as a rare accent.
+   stage #0A0907 · raised #16130E · gold #E3B04B · gold-hi #F7D98B · gold-lo #9C7424 · chalk #F4F1EA · signal red #E0313A
+   Type: Bricolage Grotesque (display + body), Great Vibes (logo-style script accents only). */
+@theme {
+  --color-stage: #0a0907;
+  --color-raised: #16130e;
+  --color-line: #2a241a;
+  --color-gold: #e3b04b;
+  --color-gold-hi: #f7d98b;
+  --color-gold-lo: #9c7424;
+  --color-chalk: #f4f1ea;
+  --color-mute: #b4ab9a;
+  --color-signal: #e0313a;
+  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+}
+
+html { scroll-behavior: smooth; background: var(--color-stage); }
+body { background: var(--color-stage); color: var(--color-chalk); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--color-gold); color: var(--color-stage); }
+:focus-visible { outline: 2px solid var(--color-gold-hi); outline-offset: 3px; border-radius: 6px; }
+
+/* Foil gold text, like the logo */
+.foil {
+  background: linear-gradient(100deg, #9c7424 0%, #f7d98b 22%, #e3b04b 40%, #fff3c4 50%, #c8902e 62%, #f7d98b 80%, #9c7424 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: foil 6s linear infinite;
+}
+@keyframes foil { to { background-position: -250% 0; } }
+
+.outline-text { color: transparent; -webkit-text-stroke: 1px rgb(227 176 75 / 0.35); }
+
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.marquee { animation: marquee 28s linear infinite; }
+.marquee-rev { animation: marquee 34s linear infinite reverse; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.pulse-dot { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; transform: scale(.8); } }
+
+.placeholder-tag {
+  display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .01em;
+  color: #f7d98b; background: rgb(227 176 75 / .1); border: 1px dashed rgb(227 176 75 / .5);
+  padding: .15rem .5rem; border-radius: 999px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .foil, .marquee, .marquee-rev, .pulse-dot { animation: none; }
+}
